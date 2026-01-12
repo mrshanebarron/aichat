@@ -9,17 +9,6 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-// Temp route to reset demo password in PHP-FPM context
-Route::get('/reset-demo', function () {
-    $user = \App\Models\User::where('email', 'demo@aichat.sbarron.com')->first();
-    if ($user) {
-        $user->password = \Illuminate\Support\Facades\Hash::make('AIChat2026!');
-        $user->save();
-        return 'Password reset for demo user';
-    }
-    return 'User not found';
-});
-
 Route::middleware('auth')->group(function () {
     // Chat routes
     Route::get('/chat', [ChatController::class, 'index'])->name('chat.index');
